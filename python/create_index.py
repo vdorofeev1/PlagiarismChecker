@@ -1,9 +1,8 @@
 from IndexCreator.index_creator import IndexCreator
 import sys
+import os
 
 if __name__ == "__main__":
-    creator = IndexCreator()
     path_to_dir = sys.argv[1]
-    save_path = sys.argv[2]
-    creator.create_index(path_to_dir)
-    creator.save_index_to_file(save_path)
+    creator = IndexCreator(sys.argv[2])
+    creator.create_indexes(path_to_dir)

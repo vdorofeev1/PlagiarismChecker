@@ -1,16 +1,20 @@
 import unittest
 
 from CodeChecker.code_checker import CodeChecker
-class MyTestCase(unittest.TestCase):
+
+
+class CodeCheckerTest(unittest.TestCase):
+    path_to_index_dir = "/home/vdorofeev/PlagiarismChecker/python/resources/inverted_indexes"
 
     def test_CodeChecker_returnFile(self):
-        path1 = "/home/vdorofeev/MyProjects/ufi/core/ufi-core/src/main/java/net/iponweb/ufi/api/http/HttpConstants.java"
-        checker = CodeChecker()
-        checker.create_tokens(path1)
-        self.assertEqual(checker.check_code(), path1)
+        path_to_file = "/home/vdorofeev/MyProjects/ufi/core/ufi-client/src/main/java/net/iponweb/ufi/api/client/v6/AddHintsRequest.java"
+        checker = CodeChecker(CodeCheckerTest.path_to_index_dir)
+        checker.create_tokens(path_to_file)
+        self.assertEqual(checker.check_code(), False)
 
     def test_CodeChecker_returnOK(self):
-        path2 = "/home/vdorofeev/MyProjects/test_project_for_jb/java/ApiClient/src/main/java/com/vdorofeev/apiclient/ApiClientApplication.java"
-        checker = CodeChecker()
-        checker.create_tokens(path2)
-        self.assertEqual(checker.check_code(), "OK")
+        path_to_file = "/home/vdorofeev/PlagiarismChecker/python/resources/source_code/spring-boot/spring-boot-tests/" \
+                       "spring-boot-smoke-tests/spring-boot-smoke-test-actuator/src/main/java/smoketest/actuator/ExampleHealthIndicator.java"
+        checker = CodeChecker(CodeCheckerTest.path_to_index_dir)
+        checker.create_tokens(path_to_file)
+        self.assertEqual(checker.check_code(), True)
