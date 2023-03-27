@@ -7,7 +7,7 @@
 #### Docker
 1. Pull docker image \
 `docker pull vdorofeev/plagiarism_checker:latest`
-2. Run image \
+2. Run docker container \
 `docker run -d -p 8080:8080 vdorofeev/plagiarism_checker` \
 You can run this container on any port you like \
 2. Check, if you've done everything correctly \
