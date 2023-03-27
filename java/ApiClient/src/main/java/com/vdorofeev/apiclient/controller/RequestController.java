@@ -46,7 +46,7 @@ public class RequestController {
         String pathToPythonScript = (String) jsonObject.get("pathToPythonScript");
         String pathToIndexes = (String) jsonObject.get("pathToIndexes");
 
-        ProcessBuilder builder = new ProcessBuilder("python",
+        ProcessBuilder builder = new ProcessBuilder("python3",
                 pathToPythonScript, argument, pathToIndexes);
         Process process = builder.start();
 

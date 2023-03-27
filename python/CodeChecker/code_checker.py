@@ -34,14 +34,12 @@ class CodeChecker:
 
             max_count = 0
             repo_name = index_file[:index_file.find('.')]
-            print(repo_name)
             for path, count in entry_count.items():
                 if max_count < count:
                     max_count = count
                     file_path = path
             if max_count / self.__total_count >= ratio:
                 isSimilar = True
-                print(file_path)
                 print(f"Input file is similar to this file: {file_path[file_path.find(repo_name):]} in {repo_name}")
                 print(f"Number of similar keywords: {max_count} ({(max_count / self.__total_count) * 100:.1f}%)")
         return isSimilar
