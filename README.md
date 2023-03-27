@@ -5,12 +5,17 @@
   
 ### How to use it?
   To start using PlagiarismChecker complete these simple steps:
-  1. Clone repository to `some_directory`
-  2. Move to this directory  
-    `cd some_directory`
-  3. Start the server 
-    `java -jar java/ApiClient/target/ApiClient-0.0.1-SNAPSHOT.jar`
-  4. Check, if you done everything correctly
-    `curl http://127.0.0.1:8080/ping`
+  1. Clone repository 
+  2. `cd PlagiarismChecker`
+  3. Edit configuration file `java/ApiClient/src/main/resources/config.json` \
+    ```{
+      "pathToIndexes": "/home/USER/PlagiarismChecker/python/resources/inverted_indexes", 
+      "pathToPythonScript": "/home/USER/PlagiarismChecker/python/check_code.py"
+    }```
+  3. Start the server with path to configuration file as argument
+    `java -jar java/ApiClient/target/ApiClient-0.0.1-SNAPSHOT.jar --arg=java/ApiClient/src/main/resources/config.json`
+  4. Check, if you done everything correctly \
+    `curl http://127.0.0.1:8080/ping` \
      You can send HTTP-resuqest any way you want
-  5. Check, if your code is unique `
+  5. Check, if your code is unique \
+    `curl -X POST http://127.0.0.1:8080/checkcode -H "Content-Type: application/string" -d "path/to/file" `
