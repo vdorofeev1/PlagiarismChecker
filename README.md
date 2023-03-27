@@ -18,4 +18,4 @@
     `curl http://127.0.0.1:8080/ping` \
      You can send HTTP-resuqest any way you want
   5. Check, if your code is unique \
-    `curl -X POST http://127.0.0.1:8080/checkcode -H "Content-Type: application/string" -d "path/to/file" `
+    `curl -X POST "file=@/path/to/file" http://127.0.0.1:8080/checkcode" `
