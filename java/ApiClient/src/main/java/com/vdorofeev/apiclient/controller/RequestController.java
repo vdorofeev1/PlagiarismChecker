@@ -4,10 +4,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 @RestController
@@ -18,8 +23,15 @@ public class RequestController {
     private String myProperty;
 
     @PostMapping("checkcode")
-    public String getResponce(@RequestBody String path) throws IOException, ParseException {
-        return executePython(path);
+    public ResponseEntity<String> getResponce(@RequestParam("file") MultipartFile file) throws ParseException {
+        try {
+            String savePath = "/tmp/filetocheck.java";
+            Path path = Paths.get(savePath);
+            file.transferTo(path);
+            return ResponseEntity.ok(executePython(savePath));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+        }
     }
 
     @GetMapping("ping")
