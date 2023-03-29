@@ -7,7 +7,7 @@ class CodeCheckerTest(unittest.TestCase):
     path_to_index_dir = "/home/vdorofeev/PlagiarismChecker/python/resources/inverted_indexes"
 
     def test_CodeChecker_returnFile(self):
-        path_to_file = "/home/vdorofeev/MyProjects/ufi/core/ufi-client/src/main/java/net/iponweb/ufi/api/client/v6/AddHintsRequest.java"
+        path_to_file = "/home/vdorofeev/IdeaProjects/Battleship/Battleship/task/src/battleship/Main.java"
         checker = CodeChecker(CodeCheckerTest.path_to_index_dir)
         checker.create_tokens(path_to_file)
         self.assertEqual(checker.check_code(), False)
