@@ -6,41 +6,43 @@ from tools.index_creator import IndexCreator
 
 
 class IndexCreatorTest(unittest.TestCase):
-    def test_IndexCreator(self):
-        path = "/home/vdorofeev/MyProjects/ufi/core/ufi-core/src"
-        save_path = "/home/vdorofeev/MyProjects/test_project_for_jb/file.json"
-        creator = IndexCreator(save_path)
-        creator.create_index_deprecated(path)
-        creator.save_index_to_file(save_path)
-        self.assertEqual(creator.get_index(), creator.read_index_from_file(save_path))
-
-    def test_newIndexCreator(self):
-        path = "/home/vdorofeev/PlagiarismChecker/python/resources/source_code/generated-code"
-        save = "/home/vdorofeev/PlagiarismChecker/python/resources/inverted_indexes/"
-        creator = IndexCreator(save)
-        creator.create_indexes(path)
 
     def test_CheckIndexCreator(self):
-        save_path = "../resources/inverted_indexes/"
+
+        code = ["public class Main {",
+                "    public static void main(String[] args) {",
+                "        System.out.println('Hello, world!');",
+                "    }",
+                "}"]
+
+        path_to_file = "../resources/source_code_to_index/generated-code/small_code/code.java"
+        with open(path_to_file, 'w') as file:
+            for line in code:
+                file.writelines(line + '\n')
+
+
+        index = {"public": {"../resources/source_code_to_index/generated-code/small_code/code.java": 2},
+                 "class": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "Main": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "static": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "void": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "main": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "String": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "args": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "System": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "out": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 "println": {"../resources/source_code_to_index/generated-code/small_code/code.java": 1},
+                 'Hello': {'../resources/source_code_to_index/generated-code/small_code/code.java': 1},
+                 'world': {'../resources/source_code_to_index/generated-code/small_code/code.java': 1}}
+
+
+        save_path = "../resources/test/inverted_indexes/"
+        path_to_dir = "../resources/source_code_to_index/generated-code/"
+        path_to_index = "../resources/test/inverted_indexes/small_code.json"
+
         creator = IndexCreator(save_path)
-        file = "../resources/source_code/generated-code/small_code/code.java"
-        tokens = IndexCreator.create_tokens(file)
-        index = {}
-        for token in tokens:
-            token_type = token[0]
+        creator.create_indexes(path_to_dir)
+        generated_index = IndexCreator.read_index_from_file(path_to_index)
 
-            token_value = token[1]
-
-            if token_type in Keyword or token_type in Name:
-                print(token_value)
-                if token_value not in index.keys():
-                    index[token_value] = {}
-                if file not in index[token_value].keys():
-                    index[token_value][file] = 1
-                else:
-                    index[token_value][file] += 1
-            else:
-                #print("NOT KEYWORD: ", token_value)
-                pass
-
+        self.assertEqual(index, generated_index)
 
