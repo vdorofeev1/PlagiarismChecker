@@ -9,10 +9,13 @@ from pygments.token import Keyword, Name
 class IndexCreator:
     lexer = JavaLexer()
 
-    def __init__(self, save_directory):
+    def __init__(self):
         self.__files = []
         self.__inverted_index = {}
         self.__count = 0
+        self.__save_directory = ""
+
+    def set_save_directory(self, save_directory):
         self.__save_directory = save_directory
 
     def __find_files(self, path_to_dir):
@@ -36,16 +39,13 @@ class IndexCreator:
                 else:
                     self.__inverted_index[token_value][file] += 1
 
-    def create_indexes(self, path_to_directory):
-        for directory in os.listdir(path_to_directory):
-            for file in self.__find_files(os.path.join(path_to_directory, directory)):
-                tokens = IndexCreator.create_tokens(file)
-                self.__add_to_index(tokens, file)
-            self.__save_index_to_file(self.__save_directory + directory + ".json")
-            self.__inverted_index.clear()
-
-    def new_create_indexes(self, path_to_directory):
-        for directory in os.listdir(path_to_directory):
+    def create_indexes(self, path_to_directory, split=True):
+        if split:
+            directories = os.listdir(path_to_directory)
+        else:
+            path_to_directory, directories = os.path.split(path_to_directory)
+            directories = [directories]
+        for directory in directories:
             for file in self.__find_files(os.path.join(path_to_directory, directory)):
                 tokens = IndexCreator.create_tokens(file)
                 self.__add_to_index(tokens, file)
