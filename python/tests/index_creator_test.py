@@ -18,7 +18,6 @@ class IndexCreatorTest(unittest.TestCase):
             for line in code:
                 file.writelines(line + '\n')
 
-
         index = {"public": {path_to_file: 2},
                  "class": {path_to_file: 1},
                  "Main": {path_to_file: 1},
@@ -32,7 +31,6 @@ class IndexCreatorTest(unittest.TestCase):
                  "println": {path_to_file: 1},
                  'Hello': {path_to_file: 1},
                  'world': {path_to_file: 1}}
-
 
         save_path = "../resources/test/inverted_indexes/"
         path_to_dir = "../resources/source_code_to_index/generated-code/"
@@ -72,7 +70,6 @@ class IndexCreatorTest(unittest.TestCase):
                  'Hello': {path_to_file: 1},
                  'world': {path_to_file: 1}}
 
-
         save_path = "../resources/test/inverted_indexes/"
         path_to_dir = "../resources/source_code_to_index/generated-code/small_code"
         path_to_index = "../resources/test/inverted_indexes/small_code.json"
@@ -83,4 +80,3 @@ class IndexCreatorTest(unittest.TestCase):
         generated_index = IndexCreator.read_index_from_file(path_to_index)
 
         self.assertEqual(index, generated_index)
-

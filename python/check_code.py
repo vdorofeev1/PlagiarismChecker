@@ -1,4 +1,4 @@
-from CodeChecker.code_checker import CodeChecker
+from tools.code_checker import CodeChecker
 import sys
 import os
 
